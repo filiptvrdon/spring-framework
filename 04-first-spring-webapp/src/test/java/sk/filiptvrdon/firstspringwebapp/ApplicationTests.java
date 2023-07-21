@@ -1,10 +1,10 @@
-package sk.filiptvrdon.springboot.firstspringwebapp;
+package sk.filiptvrdon.firstspringwebapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstSpringWebappApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

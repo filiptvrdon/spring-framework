@@ -3,6 +3,7 @@ package sk.filiptvrdon.firstspringwebapp.todo;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,14 +29,14 @@ public class TodoController {
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-	List<TodoItem> todos = todoService.getAllTodoItems();
+	List<TodoItem> todos = todoService.getTodosByUsername(getLoggedInUserName());
 	model.put("todos", todos);
 	return "todoList";
     }
-    
+
     @RequestMapping(value="add-todo", method = RequestMethod.GET)
     public String displayAddTodoPage(ModelMap model) {
-	TodoItem todo = new TodoItem(0,(String)model.get("name"),"",LocalDate.now(),false);
+	TodoItem todo = new TodoItem(0,getLoggedInUserName(),"",LocalDate.now(),false);
 	model.put("todo", todo);
 	return "todo";
     }
@@ -46,7 +47,7 @@ public class TodoController {
 	    model.put("todo", todo);
 	    return "todo";
 	}
-	todoService.addTodo((String)model.get("name"), todo.getDescription(), todo.getTargetDate());
+	todoService.addTodo(getLoggedInUserName(), todo.getDescription(), todo.getTargetDate());
 	return "redirect:list-todos";
     }
     
@@ -74,8 +75,8 @@ public class TodoController {
 	return "redirect:list-todos";
     }
     
-    
-    
-    
+    private String getLoggedInUserName() {
+	return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 }

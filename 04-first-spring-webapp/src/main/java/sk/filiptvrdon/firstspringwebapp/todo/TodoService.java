@@ -13,15 +13,15 @@ public class TodoService {
     private static long lastTodoItemId = 0;
 
     static {
-	todoItems.add(new TodoItem(++lastTodoItemId, "in28minutes", "Learn AWS", LocalDate.now().plusYears(1), false));
+	todoItems.add(new TodoItem(++lastTodoItemId, "Filip", "Learn AWS", LocalDate.now().plusYears(1), false));
 	todoItems.add(
-		new TodoItem(++lastTodoItemId, "in28minutes", "Learn DevOps", LocalDate.now().plusYears(2), false));
+		new TodoItem(++lastTodoItemId, "Filip", "Learn DevOps", LocalDate.now().plusYears(2), false));
 	todoItems
-		.add(new TodoItem(++lastTodoItemId, "in28minutes", "Learn Azure", LocalDate.now().plusYears(3), false));
+		.add(new TodoItem(++lastTodoItemId, "Filip", "Learn Azure", LocalDate.now().plusYears(3), false));
     }
 
-    public List<TodoItem> getAllTodoItems() {
-	return todoItems;
+    public List<TodoItem> getTodosByUsername(String username) {
+	return todoItems.stream().filter(todo -> todo.getUsername().equals(username)).toList();
     }
 
     public void addTodo(String username, String description, LocalDate targetDate) {

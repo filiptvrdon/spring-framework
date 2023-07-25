@@ -1,0 +1,18 @@
+{
+  "name": "my-first-npm-project",
+  "version": "1.0.0",
+  "description": "My first npm project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016\u001b[2~\u001b[2~https://github.com/filiptvrdon/spring-framework"
+  },
+  "author": "Filip Tvrdon",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.7.0"
+  }
+}

@@ -1,15 +1,13 @@
 import "./App.css";
 
 import React from "react";
-import LearningComponent from "./components/learning-examples/LearningComponent.jsx";
+import Counter from "./components/counter/Counter";
 
 function App() {
   return (
-    <div classname="App">
-      My Todo Application
-      <LearningComponent />
+    <div className="App">
+      <Counter />
     </div>
   );
 }
-
 export default App;

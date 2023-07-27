@@ -35,7 +35,7 @@ export default function TodoList() {
 
   function addTodo(id) {
     console.log("add new todo");
-    navigate(`/todo/add`);
+    navigate(`/todo/-1`);
   }
 
   return (

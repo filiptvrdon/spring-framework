@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 public class TodoService {
     private static List<TodoItem> todoItems = new ArrayList<>();
 
-    private static long lastTodoItemId = 0;
+    private static int lastTodoItemId = 0;
 
     static {
 	
-	todoItems.add(new TodoItem(++lastTodoItemId, "Filip", "Learn AWS", LocalDate.now().plusYears(1), false));
+	todoItems.add(new TodoItem(++lastTodoItemId, "in28minutes", "Learn AWS", LocalDate.now().plusYears(1), false));
 	todoItems.add(
-		new TodoItem(++lastTodoItemId, "Filip", "Learn DevOps", LocalDate.now().plusYears(2), false));
+		new TodoItem(++lastTodoItemId, "in28minutes", "Learn DevOps", LocalDate.now().plusYears(2), false));
 	todoItems
-		.add(new TodoItem(++lastTodoItemId, "Filip", "Learn Azure", LocalDate.now().plusYears(3), false));
+		.add(new TodoItem(++lastTodoItemId, "in28minutes", "Learn Azure", LocalDate.now().plusYears(3), false));
     }
 
     public List<TodoItem> getTodosByUsername(String username) {

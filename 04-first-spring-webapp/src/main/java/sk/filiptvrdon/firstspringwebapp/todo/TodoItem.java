@@ -2,10 +2,18 @@ package sk.filiptvrdon.firstspringwebapp.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class TodoItem {
-    private long id;
+    
+    @Id
+    @GeneratedValue
+    private Integer id;
+    
     private String username;
     
     @Size(min=3,message="Enter at least 3 characters")
@@ -13,7 +21,7 @@ public class TodoItem {
     private LocalDate targetDate;
     private boolean done;
 
-    public TodoItem(long id, String username, String description, LocalDate targetDate, boolean done) {
+    public TodoItem(Integer id, String username, String description, LocalDate targetDate, boolean done) {
 	super();
 	this.id = id;
 	this.username = username;
@@ -21,12 +29,16 @@ public class TodoItem {
 	this.targetDate = targetDate;
 	this.done = done;
     }
+    
+    public TodoItem() {
+	
+    }
 
-    public long getId() {
+    public Integer getId() {
 	return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
 	this.id = id;
     }
 

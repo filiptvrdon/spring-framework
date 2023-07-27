@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const apiClient = axios.create({
-  baseURL: "http://localhost:8080",
-});
+import { apiClient } from "./ApiClient";
 
 export const getTodosByUsername = (username) =>
   apiClient.get(`/users/${username}/todos`);
@@ -16,5 +12,5 @@ export const getTodoById = (username, id) =>
 export const updateTodoById = (username, id, todo) =>
   apiClient.put(`/users/${username}/todos/${id}`, todo);
 
-export const addTodo = (username, id, todo) =>
+export const addTodo = (username, todo) =>
   apiClient.post(`/users/${username}/todos`, todo);

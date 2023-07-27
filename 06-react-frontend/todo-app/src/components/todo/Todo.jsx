@@ -18,21 +18,15 @@ export default function Todo() {
   const username = authContext.username;
 
   function getTodoData() {
-    getTodoById(username, id)
-      .then((response) => {
-        setDescription(response.data.description);
-        setTargetDate(response.data.targetDate);
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  function handleDescriptionChange(event) {
-    setDescription(event.target.value);
-  }
-
-  function handleTargetDateChange(event) {
-    setTargetDate(event.target.value);
+    if (id != -1) {
+      getTodoById(username, id)
+        .then((response) => {
+          setDescription(response.data.description);
+          setTargetDate(response.data.targetDate);
+          console.log(response);
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   function validateInput(values) {
@@ -62,13 +56,24 @@ export default function Todo() {
       targetDate: values.targetDate,
     };
 
+    console.log("TODO DATA");
     console.log(todo);
 
-    updateTodoById(username, id, todo)
-      .then((response) => {
-        navigate("/todos");
-      })
-      .catch((error) => console.log(error));
+    if (todo.id == -1) {
+      console.log("ADDING NEW TODO");
+      addTodo(username, todo)
+        .then((response) => {
+          navigate("/todos");
+        })
+        .catch((error) => console.log(error));
+    } else {
+      console.log("UPDATING TODO");
+      updateTodoById(username, id, todo)
+        .then((response) => {
+          navigate("/todos");
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   return (

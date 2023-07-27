@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { createContext, useContext } from "react";
+import { executeJwtAuthService } from "../api/JwtAuthenticationApiService";
+import { apiClient } from "../api/ApiClient";
 
 export const AuthContext = createContext();
 
@@ -8,25 +10,85 @@ export const useAuth = () => useContext(AuthContext);
 export default function AuthProvider({ children }) {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
 
-  function login(username, password) {
-    if (username === "Filip" && password === "aaa") {
-      setAuthenticated(true);
-      setUsername(username);
-      return true;
-    } else {
-      setAuthenticated(false);
-      setUsername(null);
+  /*
+  async function login(username, password) {
+    const basicAuthToken = "Basic " + window.btoa(username + ":" + password);
+    console.log(basicAuthToken);
+    try {
+      const response = await executeBasicAuthService(basicAuthToken);
+
+      if (response.status === 200) {
+        setAuthenticated(true);
+        setUsername(username);
+        setToken(basicAuthToken);
+
+        apiClient.interceptors.request.use(
+          (config) => {
+            // console.log("intercepting and adding a token");
+            config.headers.Authorization = basicAuthToken;
+            return config;
+          },
+          (error) => {
+            return Promise.reject(error);
+          }
+        );
+
+        return true;
+      } else {
+        logout();
+        return false;
+      }
+    } catch (error) {
+      logout();
+      return false;
+    }
+  }
+  */
+
+  async function login(username, password) {
+    try {
+      const response = await executeJwtAuthService(username, password);
+
+      if (response.status === 200) {
+        const jwtToken = "Bearer " + response.data.token;
+
+        setAuthenticated(true);
+        setUsername(username);
+        setToken(jwtToken);
+
+        apiClient.interceptors.request.use(
+          (config) => {
+            config.headers.Authorization = jwtToken;
+            return config;
+          },
+          (error) => {
+            return Promise.reject(error);
+          }
+        );
+
+        return true;
+      } else {
+        logout();
+        return false;
+      }
+    } catch (error) {
+      logout();
       return false;
     }
   }
 
   function logout() {
     setAuthenticated(false);
+    setToken(null);
+    setUsername(null);
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, username }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, logout, username, token }}
+    >
       {children}
     </AuthContext.Provider>
   );

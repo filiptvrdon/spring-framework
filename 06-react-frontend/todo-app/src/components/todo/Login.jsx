@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
 
 export default function Login() {
-  const [username, setUsername] = useState("Filip");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("in28minutes");
+  const [password, setPassword] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const navigate = useNavigate();
   const authContext = useAuth();
@@ -17,10 +17,9 @@ export default function Login() {
     setPassword(event.target.value);
   }
 
-  function handleLogin() {
-    console.log(username);
-    console.log(password);
-    if (authContext.login(username, password)) {
+  async function handleLogin() {
+    if (await authContext.login(username, password)) {
+      console.log("HMMMMMMM");
       navigate("/welcome");
     } else {
       setShowErrorMessage(true);

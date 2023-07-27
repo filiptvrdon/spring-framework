@@ -13,6 +13,7 @@ public class TodoService {
     private static long lastTodoItemId = 0;
 
     static {
+	
 	todoItems.add(new TodoItem(++lastTodoItemId, "Filip", "Learn AWS", LocalDate.now().plusYears(1), false));
 	todoItems.add(
 		new TodoItem(++lastTodoItemId, "Filip", "Learn DevOps", LocalDate.now().plusYears(2), false));

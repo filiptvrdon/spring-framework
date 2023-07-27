@@ -14,13 +14,14 @@ public class SpringSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	
 	// any request must be authenticated 
-	http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+	// http.authorizeHttpRequests(auth -> auth.anyRequest().autheticated());
 	
 	// use basic auth
 	http.httpBasic(withDefaults());
 	
 	// CSRF -> POST, PUT
 	http.csrf().disable();
+	http.cors().disable();
 	
 	
 	return http.build();
